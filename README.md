@@ -1,85 +1,264 @@
 # Proyecto-Integrador-Data-Science-UTN
 Segmentación RFM y sistema de recomendación de productos para e-commerce utilizando Python y Machine Learning.
 Descripción del proyecto
+Este proyecto analiza datos transaccionales de una empresa de comercio electrónico con el objetivo de identificar diferentes perfiles de clientes y evaluar sistemas de recomendación de productos mediante técnicas de ciencia de datos y aprendizaje automático.
 
-Este proyecto analiza datos transaccionales de una empresa de comercio electrónico con el objetivo de identificar diferentes perfiles de clientes y evaluar sistemas de recomendación de productos.
+El propósito es proporcionar herramientas analíticas que permitan diseñar estrategias de marketing personalizadas, mejorar la experiencia de compra y contribuir a la toma de decisiones comerciales.
 
-El propósito es aportar herramientas analíticas que permitan diseñar estrategias de marketing más personalizadas y mejorar la toma de decisiones comerciales.
+2. Objetivos del proyecto
 
-Dataset utilizado
+Objetivo general:
 
-Se utiliza el conjunto de datos Online Retail, que contiene información sobre transacciones comerciales.
+Desarrollar una solución analítica que combine segmentación de clientes y sistemas de recomendación de productos para apoyar las estrategias comerciales de una empresa de e-commerce.
 
-El análisis incluye procesos de limpieza, tratamiento de registros inválidos e ingeniería de variables.
+Objetivos específicos:
 
-Metodología
+Explorar y preparar los datos transaccionales.
 
-El proyecto sigue un enfoque basado en CRISP-DM e incluye:
+Identificar patrones de compra y comportamiento de los clientes.
+
+Segmentar clientes mediante el análisis RFM y el algoritmo K-Means.
+
+Implementar y comparar diferentes sistemas de recomendación.
+
+Evaluar el desempeño mediante métricas cuantitativas.
+
+Proponer estrategias comerciales basadas en los resultados obtenidos.
+
+3. Conjunto de datos utilizado
+
+Se utiliza el conjunto de datos Online Retail, que contiene información histórica de transacciones comerciales.
+
+Características principales:
+
+Registros originales: 541.909.
+
+Registros después de la limpieza: 397.884.
+
+Clientes identificados: 4.338.
+
+Productos identificados: 3.665.
+
+Variables principales:
+
+InvoiceNo: identificador de factura.
+
+StockCode: identificador de producto.
+
+Description: descripción del producto.
+
+Quantity: cantidad adquirida.
+
+InvoiceDate: fecha de transacción.
+
+UnitPrice: precio unitario.
+
+CustomerID: identificador del cliente.
+
+Country: país de la transacción.
+
+Durante la preparación de los datos se aplicaron procedimientos de limpieza, tratamiento de registros inválidos e ingeniería de variables.
+
+4. Metodología
+
+El proyecto sigue un enfoque basado en CRISP-DM, organizado en las siguientes etapas:
 
 Comprensión del problema de negocio.
 
-Exploración y preparación de datos.
+Comprensión y exploración de los datos.
 
-Segmentación de clientes mediante RFM y K-Means.
+Preparación y limpieza del conjunto de datos.
 
-Desarrollo de sistemas de recomendación.
+Modelado mediante segmentación y recomendadores.
 
-Evaluación y comparación de modelos.
+Evaluación y comparación de resultados.
 
-Interpretación de resultados y recomendaciones comerciales.
+Interpretación comercial y recomendaciones futuras.
 
-Modelos evaluados
+5. Segmentación de clientes mediante RFM
 
-Se comparan tres estrategias de recomendación:
+Se utiliza el análisis RFM para estudiar tres dimensiones del comportamiento de compra:
 
-Top-Sellers (productos más vendidos).
+Recency: tiempo transcurrido desde la última compra.
 
-Filtrado colaborativo Usuario-Usuario.
+Frequency: frecuencia de compra.
 
-Filtrado colaborativo Ítem-Ítem.
+Monetary: valor monetario de las compras.
 
-Resultados principales
+Posteriormente, se aplica el algoritmo K-Means para identificar cuatro segmentos comerciales:
 
-El modelo Usuario-Usuario obtuvo el mejor desempeño global en el conjunto de prueba:
+VIP / Alto valor: clientes con mayor frecuencia y gasto.
 
-Precision@5: 0,0515
+Leales / Frecuentes: clientes con compras recurrentes.
 
-Recall@5: 0,0078
+Nuevos / Prometedores: clientes recientes con potencial de desarrollo.
 
-HitRate@5: 0,1874
+En riesgo / Inactivos: clientes con mayor tiempo desde su última compra.
 
-Estos resultados corresponden a la evaluación global y no implican que el mismo modelo sea superior en todos los segmentos de clientes.
+Se evaluaron distintas cantidades de clústeres mediante la métrica Silhouette. Aunque K=2 presentó un valor superior al de K=4, se seleccionaron cuatro segmentos por su mayor utilidad e interpretabilidad comercial.
 
-Tecnologías utilizadas
+6. Sistemas de recomendación evaluados
 
-Python
+Se implementaron tres estrategias:
 
-Pandas y NumPy
+6.1. Top-Sellers
 
-Scikit-learn
+Modelo de referencia que recomienda productos populares a partir del historial de compras.
 
-Matplotlib
+6.2. Filtrado colaborativo Usuario-Usuario
 
-Jupyter Notebook / Google Colab
+Identifica similitudes entre clientes y genera recomendaciones basadas en los comportamientos de compra de usuarios semejantes.
 
-Cómo ejecutar el proyecto
+6.3. Filtrado colaborativo Ítem-Ítem
 
-Abrir el archivo Proyecto_Integrador_EntregaFinal.ipynb en Google Colab o Jupyter Notebook.
+Analiza relaciones de similitud entre productos para recomendar artículos relacionados con las compras anteriores.
 
-Verificar que estén instaladas las bibliotecas necesarias.
+7. Evaluación de los modelos
 
-Comprobar que el conjunto de datos esté accesible desde la fuente indicada en el notebook.
+Para evaluar los recomendadores se utilizó una separación temporal de los datos en entrenamiento, validación y prueba.
+
+Las principales métricas utilizadas fueron:
+
+Precision@5: proporción de recomendaciones acertadas entre los cinco productos sugeridos.
+
+Recall@5: proporción de productos relevantes recuperados.
+
+HitRate@5: proporción de clientes que recibieron al menos una recomendación acertada.
+
+Resultados en el conjunto de prueba
+
+Modelo
+
+Precision@5
+
+Recall@5
+
+HitRate@5
+
+Top-Sellers
+
+0,0375
+
+0,0052
+
+0,1624
+
+Usuario-Usuario
+
+0,0515
+
+0,0078
+
+0,1874
+
+Ítem-Ítem
+
+0,0438
+
+0,0065
+
+0,1666
+
+Resultado principal:
+
+El modelo Usuario-Usuario obtuvo el mejor desempeño global y fue seleccionado previamente utilizando el conjunto de validación.
+
+Sin embargo, su superioridad global no implica que sea el modelo más efectivo en todos los segmentos RFM. En el segmento VIP / Alto valor, por ejemplo, el modelo Ítem-Ítem obtuvo una Precision@5 superior en el conjunto de prueba.
+
+8. Impacto esperado en el negocio
+
+Los resultados permiten identificar oportunidades para:
+
+Personalizar las recomendaciones de productos.
+
+Diseñar campañas comerciales diferenciadas por segmento.
+
+Mejorar la relevancia de las ofertas dirigidas a los clientes.
+
+Apoyar estrategias de fidelización y reactivación.
+
+Orientar futuras pruebas de personalización comercial.
+
+Los beneficios económicos planteados en el informe corresponden a escenarios hipotéticos y no representan incrementos de ventas comprobados experimentalmente.
+
+9. Tecnologías utilizadas
+
+Python.
+
+Pandas.
+
+NumPy.
+
+Scikit-learn.
+
+Matplotlib.
+
+SciPy.
+
+Jupyter Notebook.
+
+Google Colab.
+
+10. Estructura del repositorio
+
+El repositorio contiene el notebook principal del proyecto, el presente archivo README y los demás documentos de entrega incorporados.
+
+Archivo principal de código:
+
+Proyecto_Integrador_EntregaFinal.ipynb
+
+11. Instrucciones para ejecutar el proyecto
+
+Opción A: Google Colab
+
+Ingresar a https://colab.research.google.com/
+
+Seleccionar la opción para abrir un notebook desde GitHub.
+
+Buscar este repositorio y seleccionar Proyecto_Integrador_EntregaFinal.ipynb.
+
+Conectar el entorno de ejecución de Python.
+
+Verificar la disponibilidad de las bibliotecas utilizadas y el acceso al dataset.
 
 Ejecutar todas las celdas en orden.
 
-Revisar los resultados de segmentación y evaluación de los modelos.
+Revisar las tablas, gráficos, segmentos RFM y métricas de evaluación.
 
-Limitaciones
+Opción B: Ejecución local
 
-Los resultados se obtuvieron a partir de un conjunto de datos histórico. Las métricas de recomendación representan una evaluación offline y no garantizan incrementos reales de ventas.
+Descargar o clonar el repositorio.
 
-Para validar el impacto comercial sería necesario realizar pruebas adicionales en un entorno de negocio.
+Abrir el archivo .ipynb mediante Jupyter Notebook o Visual Studio Code.
 
-Proyecto académico
+Configurar un entorno de Python con las dependencias necesarias.
 
-Trabajo Integrador Final de la Diplomatura en Ciencia de Datos – UTN.
+Verificar la ruta o URL del conjunto de datos.
+
+Ejecutar las celdas secuencialmente.
+
+La reproducción de los resultados requiere utilizar los mismos datos, procedimientos y parámetros definidos en el notebook.
+
+12. Riesgos y limitaciones
+
+Los resultados corresponden a una evaluación offline realizada sobre datos históricos.
+
+El desempeño predictivo no garantiza automáticamente un incremento de ventas.
+
+Las preferencias y hábitos de compra pueden cambiar con el tiempo.
+
+Los segmentos RFM representan perfiles analíticos y no categorías permanentes.
+
+Las recomendaciones requieren validación adicional mediante experimentos comerciales.
+
+En una implementación real se deben considerar medidas de protección de datos, privacidad y uso responsable de la información de clientes.
+
+13. Conclusiones
+
+La combinación del análisis RFM, el algoritmo K-Means y los sistemas de recomendación permitió identificar perfiles comerciales y comparar alternativas de personalización de productos.
+
+El modelo Usuario-Usuario presentó el mejor desempeño global en la evaluación realizada, mientras que el análisis por segmentos mostró diferencias relevantes entre estrategias.
+
+Como siguiente etapa, se recomienda validar los resultados en un entorno comercial, analizar el comportamiento por segmento y medir el impacto real sobre indicadores de negocio.
+
+Proyecto Integrador Final – Diplomatura en Ciencia de Datos – UTN
